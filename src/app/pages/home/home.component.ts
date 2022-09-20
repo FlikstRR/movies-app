@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit {
   constructor(private moviesService: MoviesService) {}
 
   ngOnInit(): void {
-    this.moviesService.getMovies().subscribe((response: any) => {
+    this.moviesService.getPopularMovies().subscribe((response: any) => {
       this.movies = response.results;
       console.log(this.movies);
     });
