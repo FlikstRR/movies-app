@@ -15,6 +15,8 @@ import { SliderComponent } from './components/slider/slider.component';
 import { TilesShelfComponent } from './components/tiles-shelf/tiles-shelf.component';
 import { ItemComponent } from './components/item/item.component';
 
+import { PaginatorModule } from 'primeng/paginator';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +30,7 @@ import { ItemComponent } from './components/item/item.component';
     TilesShelfComponent,
     ItemComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, BrowserAnimationsModule],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, BrowserAnimationsModule, PaginatorModule],
   providers: [],
   bootstrap: [AppComponent]
 })
