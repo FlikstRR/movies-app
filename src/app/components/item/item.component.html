@@ -1,11 +1,11 @@
-<a [routerLink]="'/movie/' + itemData.id" class="item" *ngIf="itemData">
+<a [routerLink]="routerUri + itemData.id" class="item" *ngIf="itemData">
   <div class="item-rating">
     <i class="app-icon">star</i>
     <span>{{ itemData.vote_average }}</span
     >/10
   </div>
   <div class="item-image">
-    <img [src]="imageSizes.medium + itemData.poster_path" [alt]="itemData.title" />
+    <img [src]="imageSizes.medium + itemData.poster_path" [alt]="itemName" />
   </div>
-  <div class="item-title">{{ itemData.title }}</div>
+  <div class="item-title">{{ itemName }}</div>
 </a>
