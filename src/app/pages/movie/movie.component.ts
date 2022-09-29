@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Movie, MovieCredits, MovieImages, MovieVideo } from '../../models/movie';
 import { MoviesService } from '../../services/movies.service';
 import { IMAGES_SIZES } from '../../constants/image-sizes';
-import { first } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-movie',
@@ -19,10 +19,12 @@ export class MovieComponent implements OnInit, OnDestroy {
   movieCredits: MovieCredits | null = null;
   similarMovies: Movie[] = [];
 
+  private urlSubscription: Subscription | null = null;
+
   constructor(private route: ActivatedRoute, private moviesService: MoviesService) {}
 
   ngOnInit(): void {
-    this.route.params.pipe(first()).subscribe(({ id }) => {
+    this.urlSubscription = this.route.params.subscribe(({ id }) => {
       this.id = id;
       this.getMovie(id);
       this.getMovieVideos(id);
@@ -33,7 +35,8 @@ export class MovieComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    console.log(' destroying movies comp');
+    console.log(' destroying movies comp & subsc');
+    this.urlSubscription?.unsubscribe();
   }
 
   paginate(event: any) {
@@ -68,7 +71,6 @@ export class MovieComponent implements OnInit, OnDestroy {
 
   getSimilarMovies(id: string, page: number = 1) {
     this.moviesService.getSimilarMovies(id, page).subscribe((movies) => {
-      console.log(movies);
       this.similarMovies = movies;
     });
   }

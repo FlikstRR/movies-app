@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { GenresService } from '../../services/genres.service';
+import { Genre } from '../../models/genres';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'app-genres',
@@ -6,10 +9,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./genres.component.scss']
 })
 export class GenresComponent implements OnInit {
-
-  constructor() { }
+  genres: Genre[] = [];
+  constructor(private genresService: GenresService) {}
 
   ngOnInit(): void {
+    this.genresService.getGenres().subscribe((genresData) => {
+      this.genres = genresData;
+    });
   }
-
 }
