@@ -1,4 +1,4 @@
-<slider [items]="popularMovies"></slider>
+<slider *ngIf="popularMovies.length > 0" [items]="popularMovies"></slider>
 <!-- <pre>{{ movies | json }}</pre> -->
 <tiles-shelf [items]="upcomingMovies" title="Upcoming Movies"></tiles-shelf>
 <tiles-shelf [items]="topRatedMovies" title="Top Rated Movies"></tiles-shelf>

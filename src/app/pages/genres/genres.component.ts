@@ -4,7 +4,7 @@ import { Genre } from '../../models/genres';
 import { first } from 'rxjs';
 
 @Component({
-  selector: 'app-genres',
+  selector: 'genres',
   templateUrl: './genres.component.html',
   styleUrls: ['./genres.component.scss']
 })

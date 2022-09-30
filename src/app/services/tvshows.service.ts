@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { TvShowDto, TvShow } from '../models/tvshow';
 import { switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { Credits, Images, VideoDto } from '../models/shared';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class TvshowsService {
 
   constructor(private http: HttpClient) {}
 
-  searchTvShows(page: number, searchValue?: string) {
+  search(page: number, searchValue?: string) {
     const uri = searchValue ? '/search/tv' : '/tv/popular';
 
     return this.http
@@ -24,5 +25,33 @@ export class TvshowsService {
           return of(res.results);
         })
       );
+  }
+
+  get(id: string) {
+    return this.http.get<TvShow>(`${this.baseUrl}/tv/${id}?api_key=${this.apiKey}`);
+  }
+
+  getVideos(id: string) {
+    return this.http.get<VideoDto>(`${this.baseUrl}/tv/${id}/videos?api_key=${this.apiKey}`).pipe(
+      switchMap((res) => {
+        return of(res.results);
+      })
+    );
+  }
+
+  getImages(id: string) {
+    return this.http.get<Images>(`${this.baseUrl}/tv/${id}/images?api_key=${this.apiKey}`);
+  }
+
+  getCredits(id: string) {
+    return this.http.get<Credits>(`${this.baseUrl}/tv/${id}/credits?api_key=${this.apiKey}`);
+  }
+
+  getSimilar(id: string, page?: number) {
+    return this.http.get<TvShowDto>(`${this.baseUrl}/tv/${id}/similar?api_key=${this.apiKey}&page=${page}`).pipe(
+      switchMap((res) => {
+        return of(res.results.slice(0, 4));
+      })
+    );
   }
 }

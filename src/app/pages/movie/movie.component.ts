@@ -1,12 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Movie, MovieCredits, MovieImages, MovieVideo } from '../../models/movie';
+import { Movie } from '../../models/movie';
 import { MoviesService } from '../../services/movies.service';
 import { IMAGES_SIZES } from '../../constants/image-sizes';
 import { Subscription } from 'rxjs';
+import { Credits, Images, Video } from 'src/app/models/shared';
 
 @Component({
-  selector: 'app-movie',
+  selector: 'movie',
   templateUrl: './movie.component.html',
   styleUrls: ['./movie.component.scss']
 })
@@ -14,9 +15,9 @@ export class MovieComponent implements OnInit, OnDestroy {
   movie: Movie | null = null;
   id: string | null = null;
   imageSizes = IMAGES_SIZES;
-  movieVideos: MovieVideo[] = [];
-  movieImages: MovieImages | null = null;
-  movieCredits: MovieCredits | null = null;
+  movieVideos: Video[] = [];
+  movieImages: Images | null = null;
+  movieCredits: Credits | null = null;
   similarMovies: Movie[] = [];
 
   private urlSubscription: Subscription | null = null;

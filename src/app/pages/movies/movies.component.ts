@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-movies',
+  selector: 'movies',
   templateUrl: './movies.component.html',
   styleUrls: ['./movies.component.scss']
 })

@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-tvshows',
+  selector: 'tvshows',
   templateUrl: './tvshows.component.html',
   styleUrls: ['./tvshows.component.scss']
 })
@@ -26,7 +26,7 @@ export class TvshowsComponent implements OnInit {
   }
 
   getPagedTvShows(page: number = 1, searchKeyword?: string) {
-    this.tvShowsService.searchTvShows(page, searchKeyword).subscribe((tvShows) => {
+    this.tvShowsService.search(page, searchKeyword).subscribe((tvShows) => {
       this.tvShows = tvShows;
     });
   }
