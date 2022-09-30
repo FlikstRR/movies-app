@@ -1,4 +1,4 @@
-import { Poster, Backdrop, SpokenLanguage } from './shared';
+import { SpokenLanguage, Item } from './shared';
 import { Genre } from './genres';
 
 export interface TvShowDto {
@@ -84,3 +84,16 @@ export interface Season {
   poster_path: string;
   season_number: number;
 }
+
+export const mapTvShowToItem = (tvShow: TvShow): Item => {
+  return {
+    backdrop_path: tvShow.backdrop_path,
+    id: tvShow.id,
+    overview: tvShow.overview,
+    poster_path: tvShow.poster_path,
+    release_date: tvShow.first_air_date,
+    title: tvShow.name,
+    vote_average: tvShow.vote_average,
+    vote_count: tvShow.vote_count
+  };
+};

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Movie } from '../../models/movie';
+import { Item } from 'src/app/models/shared';
 
 @Component({
   selector: 'tiles-shelf',
@@ -7,6 +7,6 @@ import { Movie } from '../../models/movie';
   styleUrls: ['./tiles-shelf.component.scss']
 })
 export class TilesShelfComponent {
-  @Input() items: Movie[] = [];
+  @Input() items: Item[] = [];
   @Input() title: string = '';
 }

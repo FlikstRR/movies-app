@@ -5,7 +5,7 @@
     >/10
   </div>
   <div class="item-image">
-    <img [src]="imageSizes.medium + itemData.poster_path" [alt]="itemName" />
+    <img [src]="imageSizes.medium + itemData.poster_path" [alt]="itemData.title" />
   </div>
-  <div class="item-title">{{ itemName }}</div>
+  <div class="item-title">{{ itemData.title }}</div>
 </a>

@@ -15,6 +15,24 @@ export class TvshowsService {
 
   constructor(private http: HttpClient) {}
 
+  getByType(type: string = 'upcoming', count: number = 12) {
+    return this.http.get<TvShowDto>(`${this.baseUrl}/tv/${type}?api_key=${this.apiKey}`).pipe(
+      switchMap((res) => {
+        return of(res.results.slice(0, count));
+      })
+    );
+  }
+
+  getByGenre(genreId: string, page: number) {
+    return this.http
+      .get<TvShowDto>(`${this.baseUrl}/discover/tv/?with_genres=${genreId}&page=${page}&api_key=${this.apiKey}`)
+      .pipe(
+        switchMap((res) => {
+          return of(res.results);
+        })
+      );
+  }
+
   search(page: number, searchValue?: string) {
     const uri = searchValue ? '/search/tv' : '/tv/popular';
 

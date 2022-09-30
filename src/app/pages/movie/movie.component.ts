@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Movie } from '../../models/movie';
+import { mapMovieToItem, Movie } from '../../models/movie';
 import { MoviesService } from '../../services/movies.service';
 import { IMAGES_SIZES } from '../../constants/image-sizes';
 import { Subscription } from 'rxjs';
-import { Credits, Images, Video } from 'src/app/models/shared';
+import { Credits, Images, Item, Video } from 'src/app/models/shared';
 
 @Component({
   selector: 'movie',
@@ -13,12 +13,13 @@ import { Credits, Images, Video } from 'src/app/models/shared';
 })
 export class MovieComponent implements OnInit, OnDestroy {
   movie: Movie | null = null;
+  movieItem: Item | null = null;
   id: string | null = null;
   imageSizes = IMAGES_SIZES;
   movieVideos: Video[] = [];
   movieImages: Images | null = null;
   movieCredits: Credits | null = null;
-  similarMovies: Movie[] = [];
+  similarMovies: Item[] = [];
 
   private urlSubscription: Subscription | null = null;
 
@@ -47,32 +48,33 @@ export class MovieComponent implements OnInit, OnDestroy {
   }
 
   getMovieVideos(id: any) {
-    this.moviesService.getMovieVideos(id).subscribe((movieVideosData) => {
+    this.moviesService.getVideos(id).subscribe((movieVideosData) => {
       this.movieVideos = movieVideosData;
     });
   }
 
   getMovie(id: string) {
-    this.moviesService.getMovie(id).subscribe((movieData) => {
+    this.moviesService.get(id).subscribe((movieData) => {
       this.movie = movieData;
+      this.movieItem = mapMovieToItem(movieData);
     });
   }
 
   getMovieImages(id: string) {
-    this.moviesService.getMovieImages(id).subscribe((movieImagesData) => {
+    this.moviesService.getImages(id).subscribe((movieImagesData) => {
       this.movieImages = movieImagesData;
     });
   }
 
   getMovieCredits(id: string) {
-    this.moviesService.getMovieCredits(id).subscribe((movieCreditsData) => {
+    this.moviesService.getCredits(id).subscribe((movieCreditsData) => {
       this.movieCredits = movieCreditsData;
     });
   }
 
   getSimilarMovies(id: string, page: number = 1) {
-    this.moviesService.getSimilarMovies(id, page).subscribe((movies) => {
-      this.similarMovies = movies;
+    this.moviesService.getSimilar(id, page).subscribe((movies) => {
+      this.similarMovies = movies.map((movie) => mapMovieToItem(movie));
     });
   }
 }

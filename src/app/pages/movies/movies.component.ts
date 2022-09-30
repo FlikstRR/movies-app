@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Movie } from '../../models/movie';
-import { MoviesService } from 'src/app/services/movies.service';
+import { MoviesService } from '../../services/movies.service';
 import { ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs/operators';
+import { Item } from '../../models/shared';
+import { mapMovieToItem } from '../../models/movie';
 
 @Component({
   selector: 'movies',
@@ -10,7 +11,7 @@ import { take } from 'rxjs/operators';
   styleUrls: ['./movies.component.scss']
 })
 export class MoviesComponent implements OnInit {
-  movies: Movie[] = [];
+  movies: Item[] = [];
   genreId: string | null = null;
   searchValue: string | null = null;
 
@@ -31,14 +32,14 @@ export class MoviesComponent implements OnInit {
   }
 
   getPagedMovies(page: number = 1, searchKeyword?: string) {
-    this.moviesService.searchMovies(page, searchKeyword).subscribe((movies) => {
-      this.movies = movies;
+    this.moviesService.search(page, searchKeyword).subscribe((movies) => {
+      this.movies = movies.map((movie) => mapMovieToItem(movie));
     });
   }
 
   getMoviesByGenre(genreId: string, page: number = 1) {
-    this.moviesService.getMoviesByGenre(genreId, page).subscribe((movies) => {
-      this.movies = movies;
+    this.moviesService.getByGenre(genreId, page).subscribe((movies) => {
+      this.movies = movies.map((movie) => mapMovieToItem(movie));
     });
   }
 

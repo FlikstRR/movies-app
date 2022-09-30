@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { TvShow } from '../../models/tvshow';
+import { mapTvShowToItem, TvShow } from '../../models/tvshow';
 import { IMAGES_SIZES } from '../../constants/image-sizes';
 import { Subscription } from 'rxjs';
 import { TvshowsService } from '../../services/tvshows.service';
-import { Credits, Images, Video } from '../../models/shared';
+import { Credits, Images, Item, Video } from '../../models/shared';
 
 @Component({
   selector: 'tvshow',
@@ -13,12 +13,13 @@ import { Credits, Images, Video } from '../../models/shared';
 })
 export class TvshowComponent implements OnInit, OnDestroy {
   tvShow: TvShow | null = null;
+  tvShowItem: Item | null = null;
   id: string | null = null;
   imageSizes = IMAGES_SIZES;
   tvShowVideos: Video[] = [];
   tvShowImages: Images | null = null;
   tvShowCredits: Credits | null = null;
-  similarTvShows: TvShow[] = [];
+  similarTvShows: Item[] = [];
 
   private urlSubscription: Subscription | null = null;
 
@@ -36,7 +37,6 @@ export class TvshowComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    console.log(' destroying tvshow comp & subsc');
     this.urlSubscription?.unsubscribe();
   }
 
@@ -55,6 +55,7 @@ export class TvshowComponent implements OnInit, OnDestroy {
   get(id: string) {
     this.tvShowService.get(id).subscribe((tvShowData) => {
       this.tvShow = tvShowData;
+      this.tvShowItem = mapTvShowToItem(tvShowData);
     });
   }
 
@@ -72,7 +73,7 @@ export class TvshowComponent implements OnInit, OnDestroy {
 
   getSimilar(id: string, page: number = 1) {
     this.tvShowService.getSimilar(id, page).subscribe((tvShows) => {
-      this.similarTvShows = tvShows;
+      this.similarTvShows = tvShows.map((tvShow) => mapTvShowToItem(tvShow));
     });
   }
 }

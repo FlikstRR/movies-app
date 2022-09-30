@@ -10,11 +10,16 @@ import { first } from 'rxjs';
 })
 export class GenresComponent implements OnInit {
   genres: Genre[] = [];
+  tvGenres: Genre[] = [];
   constructor(private genresService: GenresService) {}
 
   ngOnInit(): void {
     this.genresService.getGenres().subscribe((genresData) => {
       this.genres = genresData;
+    });
+
+    this.genresService.getTvGenres().subscribe((tvGenresData) => {
+      this.tvGenres = tvGenresData;
     });
   }
 }

@@ -1,46 +1,23 @@
 <div class="slider">
-  <ng-container *ngFor="let movie of movieData; let i = index">
+  <ng-container *ngFor="let item of items; let i = index">
     <div class="slide" *ngIf="i == currentSlideIndex" @slideFade>
       <div class="slide-bg">
-        <img class="slide-bg-image" [src]="imageSizes.large + movie.backdrop_path" alt="" />
+        <img class="slide-bg-image" [src]="imageSizes.large + item.backdrop_path" alt="" />
       </div>
       <div class="slide-pane">
-        <h2 class="name">{{ movie.title }}</h2>
+        <h2 class="name">{{ item.title }}</h2>
         <div class="meta">
           <div class="info">
             <span class="rating">
-              <span class="app-icon">star</span> <span class="rating-value">{{ movie.vote_average }}</span
+              <span class="app-icon">star</span> <span class="rating-value">{{ item.vote_average }}</span
               ><span>/10</span>
             </span>
-            <span>{{ movie.vote_count }}</span>
-            <span>{{ movie.release_date | date: 'yyyy' }}</span>
+            <span>{{ item.vote_count }}</span>
+            <span>{{ item.release_date | date: 'yyyy' }}</span>
           </div>
         </div>
-        <div class="desc mt-6">{{ movie.overview }}</div>
+        <div class="desc mt-6">{{ item.overview }}</div>
       </div>
     </div>
-  </ng-container>
-  <ng-container *ngIf="sliderMode == 'TvShow'">
-    <ng-container *ngFor="let tvShow of tvShowData; let i = index">
-      <div class="slide" *ngIf="i == currentSlideIndex" @slideFade>
-        <div class="slide-bg">
-          <img class="slide-bg-image" [src]="imageSizes.large + tvShow.backdrop_path" alt="" />
-        </div>
-        <div class="slide-pane">
-          <h2 class="name">{{ tvShow.name }}</h2>
-          <div class="meta">
-            <div class="info">
-              <span class="rating">
-                <span class="app-icon">star</span> <span class="rating-value">{{ tvShow.vote_average }}</span
-                ><span>/10</span>
-              </span>
-              <span>{{ tvShow.vote_count }}</span>
-              <span>{{ tvShow.first_air_date | date: 'yyyy' }}</span>
-            </div>
-          </div>
-          <div class="desc mt-6">{{ tvShow.overview }}</div>
-        </div>
-      </div>
-    </ng-container>
   </ng-container>
 </div>

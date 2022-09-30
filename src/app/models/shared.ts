@@ -79,3 +79,14 @@ export interface Credits {
     profile_path: string;
   }[];
 }
+
+export interface Item {
+  backdrop_path: string | null;
+  id: number;
+  overview: string;
+  poster_path: string | null;
+  release_date: string;
+  title: string;
+  vote_average: number;
+  vote_count: number;
+}

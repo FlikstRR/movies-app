@@ -1,5 +1,5 @@
-<ng-container *ngIf="tvShow">
-  <slider [items]="[tvShow]" [isBanner]="true" [sliderMode]="'TvShow'"></slider>
+<ng-container *ngIf="tvShowItem && tvShow">
+  <slider [items]="[tvShowItem]" [isBanner]="true"></slider>
 
   <p-tabView>
     <p-tabPanel header="Overview">

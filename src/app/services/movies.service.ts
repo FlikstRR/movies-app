@@ -14,7 +14,7 @@ export class MoviesService {
 
   constructor(private http: HttpClient) {}
 
-  getMovies(type: string = 'upcoming', count: number = 12) {
+  getByType(type: string = 'upcoming', count: number = 12) {
     return this.http.get<MovieDto>(`${this.baseUrl}/movie/${type}?api_key=${this.apiKey}`).pipe(
       switchMap((res) => {
         return of(res.results.slice(0, count));
@@ -22,7 +22,7 @@ export class MoviesService {
     );
   }
 
-  getMoviesByGenre(genreId: string, page: number) {
+  getByGenre(genreId: string, page: number) {
     return this.http
       .get<MovieDto>(`${this.baseUrl}/discover/movie/?with_genres=${genreId}&page=${page}&api_key=${this.apiKey}`)
       .pipe(
@@ -32,7 +32,7 @@ export class MoviesService {
       );
   }
 
-  searchMovies(page: number, searchValue?: string) {
+  search(page: number, searchValue?: string) {
     const uri = searchValue ? '/search/movie' : '/movie/popular';
 
     return this.http
@@ -44,11 +44,11 @@ export class MoviesService {
       );
   }
 
-  getMovie(id: string) {
+  get(id: string) {
     return this.http.get<Movie>(`${this.baseUrl}/movie/${id}?api_key=${this.apiKey}`);
   }
 
-  getMovieVideos(id: string) {
+  getVideos(id: string) {
     return this.http.get<VideoDto>(`${this.baseUrl}/movie/${id}/videos?api_key=${this.apiKey}`).pipe(
       switchMap((res) => {
         return of(res.results);
@@ -56,15 +56,15 @@ export class MoviesService {
     );
   }
 
-  getMovieImages(id: string) {
+  getImages(id: string) {
     return this.http.get<Images>(`${this.baseUrl}/movie/${id}/images?api_key=${this.apiKey}`);
   }
 
-  getMovieCredits(id: string) {
+  getCredits(id: string) {
     return this.http.get<Credits>(`${this.baseUrl}/movie/${id}/credits?api_key=${this.apiKey}`);
   }
 
-  getSimilarMovies(id: string, page?: number) {
+  getSimilar(id: string, page?: number) {
     return this.http.get<MovieDto>(`${this.baseUrl}/movie/${id}/similar?api_key=${this.apiKey}&page=${page}`).pipe(
       switchMap((res) => {
         return of(res.results.slice(0, 4));

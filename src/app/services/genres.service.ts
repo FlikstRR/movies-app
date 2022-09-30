@@ -22,4 +22,12 @@ export class GenresService {
       })
     );
   }
+
+  getTvGenres() {
+    return this.http.get<GenresDto>(`${this.baseUrl}/genre/tv/list?api_key=${this.apiKey}`).pipe(
+      switchMap((res) => {
+        return of(res.genres);
+      })
+    );
+  }
 }

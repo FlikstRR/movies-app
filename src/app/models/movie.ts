@@ -1,4 +1,4 @@
-import { SpokenLanguage, Collection, ProductionCompany, ProductionCountry } from './shared';
+import { SpokenLanguage, Collection, ProductionCompany, ProductionCountry, Item } from './shared';
 import { Genre } from './genres';
 
 export interface Movie {
@@ -36,3 +36,16 @@ export interface MovieDto {
   total_results: number;
   total_pages: number;
 }
+
+export const mapMovieToItem = (movie: Movie): Item => {
+  return {
+    backdrop_path: movie.backdrop_path,
+    id: movie.id,
+    overview: movie.overview,
+    poster_path: movie.poster_path,
+    release_date: movie.release_date,
+    title: movie.title,
+    vote_average: movie.vote_average,
+    vote_count: movie.vote_count
+  };
+};

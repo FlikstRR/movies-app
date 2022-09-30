@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { TvShow } from '../../models/tvshow';
+import { mapTvShowToItem } from '../../models/tvshow';
 import { TvshowsService } from 'src/app/services/tvshows.service';
 import { ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs/operators';
+import { Item } from 'src/app/models/shared';
 
 @Component({
   selector: 'tvshows',
@@ -10,7 +11,7 @@ import { take } from 'rxjs/operators';
   styleUrls: ['./tvshows.component.scss']
 })
 export class TvshowsComponent implements OnInit {
-  tvShows: TvShow[] = [];
+  tvShows: Item[] = [];
   genreId: string | null = null;
   searchValue: string | null = null;
 
@@ -27,13 +28,24 @@ export class TvshowsComponent implements OnInit {
 
   getPagedTvShows(page: number = 1, searchKeyword?: string) {
     this.tvShowsService.search(page, searchKeyword).subscribe((tvShows) => {
-      this.tvShows = tvShows;
+      this.tvShows = tvShows.map((tvShow) => mapTvShowToItem(tvShow));
+    });
+  }
+
+  getTvShowByGenre(genreId: string, page: number = 1) {
+    this.tvShowsService.getByGenre(genreId, page).subscribe((tvShows) => {
+      this.tvShows = tvShows.map((tvShow) => mapTvShowToItem(tvShow));
     });
   }
 
   ngOnInit(): void {
     this.route.params.pipe(take(1)).subscribe(({ genreId }) => {
-      this.getPagedTvShows();
+      if (genreId) {
+        this.genreId = genreId;
+        this.getTvShowByGenre(genreId);
+      } else {
+        this.getPagedTvShows();
+      }
     });
   }
 
