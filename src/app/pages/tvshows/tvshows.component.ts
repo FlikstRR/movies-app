@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { mapTvShowToItem } from '../../models/tvshow';
-import { TvshowsService } from 'src/app/services/tvshows.service';
+import { TvshowsService } from '../../services/tvshows.service';
 import { ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs/operators';
-import { Item } from 'src/app/models/shared';
+import { Item } from '../../models/shared';
 
 @Component({
   selector: 'tvshows',

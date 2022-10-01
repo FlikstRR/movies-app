@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Item } from 'src/app/models/shared';
-import { mapTvShowToItem } from 'src/app/models/tvshow';
+import { Item } from '../../models/shared';
+import { mapTvShowToItem } from '../../models/tvshow';
 import { mapMovieToItem } from '../../models/movie';
 import { MoviesService } from '../../services/movies.service';
 import { TvshowsService } from '../../services/tvshows.service';

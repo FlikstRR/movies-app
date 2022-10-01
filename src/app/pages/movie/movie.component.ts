@@ -4,7 +4,7 @@ import { mapMovieToItem, Movie } from '../../models/movie';
 import { MoviesService } from '../../services/movies.service';
 import { IMAGES_SIZES } from '../../constants/image-sizes';
 import { Subscription } from 'rxjs';
-import { Credits, Images, Item, Video } from 'src/app/models/shared';
+import { Credits, Images, Item, Video } from '../../models/shared';
 
 @Component({
   selector: 'movie',

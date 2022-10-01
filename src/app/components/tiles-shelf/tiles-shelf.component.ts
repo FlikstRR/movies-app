@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Item } from 'src/app/models/shared';
+import { Item } from '../../models/shared';
 
 @Component({
   selector: 'tiles-shelf',
